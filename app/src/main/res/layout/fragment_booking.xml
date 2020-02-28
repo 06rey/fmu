@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/header"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/bookingTabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="left"
+            android:background="@color/grayyy"
+            android:onClick="showPendingClick"
+            app:tabIndicatorColor="@color/color1"
+            app:tabSelectedTextColor="@color/color1"
+            app:tabTextColor="@color/gray2">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/pendingTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MY PENDING TRIP" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/travelingTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TRAVELING TRIP"
+                android:textColor="@color/color1" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/historyTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TRIP HISTORY"
+                android:textColor="@color/color1" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/bookingPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/background_light" />
+
+    </LinearLayout>
+
+</LinearLayout>

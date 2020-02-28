@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+  <androidx.cardview.widget.CardView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="10dp"
+      android:layout_marginTop="5dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginBottom="5dp">
+
+    <LinearLayout
+        android:id="@+id/routeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="5dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+
+        <View
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:background="@android:drawable/ic_menu_mylocation" />
+
+
+        <TextView
+            android:id="@+id/routeOrigin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/borderless"
+            android:ems="10"
+            android:text="Tacloban City"
+            android:textColor="@color/darkGray"
+            android:textColorHint="@color/textColorHint"
+            android:textCursorDrawable="@color/darkGray"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="25dp"
+            android:layout_height="17dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+          <View
+              android:layout_width="5dp"
+              android:layout_height="5dp"
+              android:layout_marginBottom="2dp"
+              android:background="@drawable/dot" />
+
+          <View
+              android:layout_width="5dp"
+              android:layout_height="5dp"
+              android:layout_marginTop="1dp"
+              android:background="@drawable/dot" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/textColorHint" />
+
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+
+        <View
+            android:layout_width="25dp"
+            android:layout_height="22dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/marker_gray" />
+
+
+        <TextView
+            android:id="@+id/routeDestination"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/borderless"
+            android:ems="10"
+            android:hint=" "
+            android:text="Borongan City"
+            android:textColor="@color/darkGray"
+            android:textColorHint="@color/textColorHint"
+            android:textCursorDrawable="@color/darkGray"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="30dp"
+          android:layout_marginTop="5dp"
+          android:layout_marginBottom="5dp"
+          android:gravity="left"
+          android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="5dp"
+            android:text="via"
+            android:textColor="@color/gray2"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            app:fontFamily="sans-serif" />
+
+        <TextView
+            android:id="@+id/routeVia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lawaan Eastern Samar"
+            android:textColor="@color/color1"
+            android:textSize="14sp"
+            app:fontFamily="sans-serif" />
+      </LinearLayout>
+
+    </LinearLayout>
+  </androidx.cardview.widget.CardView>
+
+</LinearLayout>

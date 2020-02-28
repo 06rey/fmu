@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/formBackground">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="40dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create a New Password"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="You'll use this password to access your account. Enter a combination of at least six numbers, letters and punctuation marks." />
+
+            <EditText
+                android:id="@+id/txtNew"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/et_line"
+                android:gravity="center"
+                android:hint="Type a new password"
+                android:inputType="textPassword"
+                android:textCursorDrawable="@color/superdarkgray" />
+
+            <EditText
+                android:id="@+id/txtConfrim"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/et_line"
+                android:gravity="center"
+                android:hint="Confirm new password"
+                android:inputType="textPassword"
+                android:textCursorDrawable="@color/superdarkgray" />
+
+            <Button
+                android:id="@+id/btnCont"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="40dp"
+                android:background="@color/color1"
+                android:text="Continue"
+                android:textColor="@color/formBackground" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

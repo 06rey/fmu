@@ -1,0 +1,18 @@
+<resources>
+    <string name="font_fam">sans-serif</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="loadingText">Loading...</string>
+    <string name="base_url">172.16.7.124</string>
+    <string name="BASE_URL2">http://172.16.7.124/fmuv/</string>
+    <string name="BASE_URL1">http://findmeuv.x10host.com/fmuv/</string>
+    <string name="BASE_URL">http://192.168.43.147/fmuv/</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="tk">bac80ef56896803b02179ad0b2b38bd60bfd6133</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+</resources>

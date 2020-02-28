@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/appBackgroud"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:background="@drawable/uv" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/color1" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|center_vertical"
+                android:orientation="vertical"
+                android:paddingLeft="20dp"
+                android:paddingTop="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="20dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:animationCache="false"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/btnfuv"
+                        android:layout_width="160dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@color/col3"
+                        android:gravity="right"
+                        android:onClick="onClickBtnFuv"
+                        android:orientation="vertical"
+                        android:paddingBottom="10dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="30dp"
+                            android:gravity="top|left"
+                            android:text="Pending Trip"
+                            android:textColor="@android:color/background_light"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginBottom="5dp"
+                            app:srcCompat="@drawable/bus_white" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/btnbh"
+                        android:layout_width="160dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/col3"
+                        android:gravity="right"
+                        android:onClick="onClickBtnTraveling"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="30dp"
+                            android:gravity="top|left"
+                            android:text="Travelling Trip"
+                            android:textColor="@android:color/background_light"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginBottom="10dp"
+                            app:srcCompat="@drawable/map_white" />
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/btnmeuv"
+                        android:layout_width="160dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/col3"
+                        android:gravity="right"
+                        android:onClick="onClickbtnBh"
+                        android:orientation="vertical"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="30dp"
+                            android:gravity="top|left"
+                            android:text="My Booking"
+                            android:textColor="@android:color/background_light"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginBottom="5dp"
+                            app:srcCompat="@drawable/history_white" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/btnas"
+                        android:layout_width="160dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:background="@color/col3"
+                        android:gravity="right"
+                        android:onClick="onCLickBtnAs"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="30dp"
+                            android:gravity="top|left"
+                            android:text="Account Setting"
+                            android:textColor="@android:color/background_light"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginBottom="10dp"
+                            app:srcCompat="@drawable/settingswhite" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/btnus"
+                        android:layout_width="160dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@color/col3"
+                        android:gravity="right"
+                        android:onClick="onCLickbtnUg"
+                        android:orientation="vertical"
+                        android:paddingBottom="10dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="30dp"
+                            android:gravity="top|left"
+                            android:text="Help"
+                            android:textColor="@android:color/background_light"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="5dp"
+                            app:srcCompat="@drawable/user_white" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/btnlog"
+                        android:layout_width="160dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/col3"
+                        android:gravity="right"
+                        android:onClick="logout"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="30dp"
+                            android:gravity="top|left"
+                            android:text="Logout"
+                            android:textColor="@android:color/background_light"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp"
+                            app:srcCompat="@drawable/logout_white" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</LinearLayout>

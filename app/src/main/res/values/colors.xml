@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#02365C</color>
+    <color name="colorPrimaryDark">#0268B2</color>
+    <color name="colorAccent">#FEFCFD</color>
+    <color name="appBackgroud">#002642</color>
+    <color name="baseFontColor">#DDDCDC</color>
+    <color name="textColorHint">#C4C5C6</color>
+    <color name="color1">#0268B3</color>
+    <color name="darkOrange">#C04F12</color>
+    <color name="formBackground">#FDFDFE</color>
+    <color name="formTextColor">#0B0202</color>
+    <color name="lineColor">#2C9FF3</color>
+    <color name="darkGray">#646565</color>
+    <color name="superdarkgray">#3B3B3B</color>
+    <color name="grayyy">#F8F7F7</color>
+    <color name="green">#2D7625</color>
+    <color name="gray2">#8C8B8B</color>
+    <color name="header">#F0EFEF</color>
+    <color name="dividerColor">#EFEEEE</color>
+    <color name="red">#B00303</color>
+    <color name="dialogBackground">#730B0202</color>
+    <color name="info_color">#42BFFA</color>
+    <color name="toolBar2">#0264AB</color>
+    <color name="atoolBar2">#024372</color>
+    <color name="light_green">#0CBB1E</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="icon">#03518B</color>
+    <color name="dim_background">#C0141212</color>
+    <color name="float_transparent">#C3726868</color>
+    <color name="to_destination_line_color">#98A5B0</color>
+    <color name="col1">#193C56</color>
+    <color name="col2">#FC3D5B71</color>
+    <color name="col3">#014879</color>
+    <color name="blur">#B7050506</color>
+    <color name="white_blur">#8F060606</color>
+</resources>

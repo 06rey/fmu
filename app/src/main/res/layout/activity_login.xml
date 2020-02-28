@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/appBackgroud"
+    tools:context=".view.activity.LoginActivity"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="0dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/login_form_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/appBackgroud"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+
+                <ImageView
+                    android:id="@+id/imgLogo"
+                    android:layout_width="0dp"
+                    android:layout_height="62dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="92dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/fmu2" />
+
+                <EditText
+                    android:id="@+id/etRegFname"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="76dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/et_line"
+                    android:drawableLeft="@android:drawable/ic_menu_call"
+                    android:drawablePadding="4dp"
+                    android:ems="10"
+                    android:fontFamily="@string/font_fam"
+                    android:hint="Email"
+                    android:inputType="textPersonName"
+                    android:textColorHint="@color/darkGray"
+                    android:textColorLink="@color/colorPrimaryDark"
+                    android:textCursorDrawable="@color/baseFontColor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imgLogo" />
+
+                <EditText
+                    android:id="@+id/etUserPass"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/et_line"
+                    android:drawableLeft="@android:drawable/ic_lock_idle_lock"
+                    android:drawablePadding="10dp"
+                    android:ems="10"
+                    android:fontFamily="@string/font_fam"
+                    android:hint="Password"
+                    android:inputType="none|textPassword"
+                    android:textColor="@color/baseFontColor"
+                    android:textColorHint="@color/darkGray"
+                    android:textColorLink="@color/colorPrimaryDark"
+                    android:textCursorDrawable="@color/colorAccent"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.494"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/etRegFname" />
+
+
+                <Button
+                    android:id="@+id/btnLogin"
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@color/colorPrimaryDark"
+                    android:enabled="false"
+                    android:fontFamily="@string/font_fam"
+                    android:onClick="clickBtnLogin"
+                    android:radius="3dp"
+                    android:text="Login"
+                    android:textAllCaps="false"
+                    android:textColor="@color/darkGray"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/etUserPass" />
+
+                <Button
+                    android:id="@+id/btnForgotPass"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:fontFamily="@string/font_fam"
+                    android:onClick="forgotPasswordClick"
+                    android:text="Forgot password?"
+                    android:textAllCaps="false"
+                    android:textColor="@color/color1"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
+                <Button
+                    android:id="@+id/btnNewoFinfMeUV"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:fontFamily="@string/font_fam"
+                    android:onClick="clickRegister"
+                    android:text="New to FindmeUV? Register here"
+                    android:textAllCaps="false"
+                    android:textColor="@color/textColorHint"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnForgotPass" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
