@@ -31,14 +31,16 @@ public class PassengerListAdapter extends RecyclerView.Adapter<PassengerListAdap
     private EventHandler eventHandler;
     private String name;
     private int size;
+    private boolean pendingStat;
 
-    public PassengerListAdapter(ViewHelper viewHelper, List<Passenger> passengerList, Context context, EventHandler eventHandler) {
+    public PassengerListAdapter(ViewHelper viewHelper, List<Passenger> passengerList, Context context, EventHandler eventHandler, boolean pending) {
         this.viewHelper = viewHelper;
         this.passengerList = passengerList;
         this.context = context;
         this.eventHandler = eventHandler;
         this.setHttpResponseObserver();
         this.size = passengerList.size();
+        this.pendingStat = pending;
     }
 
     private void setHttpResponseObserver() {
@@ -75,6 +77,10 @@ public class PassengerListAdapter extends RecyclerView.Adapter<PassengerListAdap
         holder.txtBoardPass.setText("Boarding Pass: " + passenger.getBoardPass());
 
         if (size < 2 && !passenger.getStatus().equals("on_board")) {
+            holder.removeBtn.setVisibility(View.GONE);
+        }
+
+        if (!pendingStat) {
             holder.removeBtn.setVisibility(View.GONE);
         }
 

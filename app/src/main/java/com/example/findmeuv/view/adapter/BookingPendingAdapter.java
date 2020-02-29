@@ -28,18 +28,19 @@ public class BookingPendingAdapter extends RecyclerView.Adapter<BookingPendingAd
 
     private List<PendingTrip> pendingList;
     private Context context;
-
+    private boolean pending;
     private ViewHelper dialog;
 
     private SharedPreferences fmuUserPref;
     private SharedPreferences.Editor editor;
     private AdapterHandler adapterHandler;
 
-    public BookingPendingAdapter(List<PendingTrip> list, Context context, AdapterHandler adapterHandler) {
+    public BookingPendingAdapter(List<PendingTrip> list, Context context, AdapterHandler adapterHandler, boolean pending) {
         this.pendingList = list;
         this.context = context;
         this.dialog = new ViewHelper(context);
         this.adapterHandler = adapterHandler;
+        this.pending = pending;
     }
 
     @NonNull
@@ -71,9 +72,15 @@ public class BookingPendingAdapter extends RecyclerView.Adapter<BookingPendingAd
                 Intent intent = new Intent(context, PassengerListActivity.class);
                 intent.putExtra("book_id", list.getBookId());
                 intent.putExtra("trip_id", list.getTripId());
+                intent.putExtra("pending", pending);
                 context.startActivity(intent);
             }
         });
+
+        if (!pending) {
+            holder.btnCancel.setVisibility(View.GONE);
+            holder.status.setVisibility(View.GONE);
+        }
 
         holder.btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override

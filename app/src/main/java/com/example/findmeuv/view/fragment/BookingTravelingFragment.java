@@ -65,7 +65,8 @@ public class BookingTravelingFragment extends Fragment implements OnMapReadyCall
 
     //MISC VARIABLES
     private String tripId, bookId;
-    private  LinearLayout layoutLoad, layoutMap;
+    private View view;
+    private  LinearLayout layoutLoad;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -88,7 +89,9 @@ public class BookingTravelingFragment extends Fragment implements OnMapReadyCall
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        Log.d("DebugLog", "MAP READY");
         this.googleMap = googleMap;
+        this.getTrip();
     }
 
     private void zoomMap() {
@@ -111,30 +114,22 @@ public class BookingTravelingFragment extends Fragment implements OnMapReadyCall
 
         sharedPreferences = getContext().getSharedPreferences("fmuPref", 0);
 
-        layoutLoad = view.findViewById(R.id.layoutLoadMap);
-        layoutMap = view.findViewById(R.id.mapLay);
-
         activity = getActivity();
+        this.view = view;
 
         this.setViewModelObserver();
 
-        // METHOD CALL
-        this.getTrip();
     }
     // MISC FUNCTIONS
-    private void hideLoadingMap() {
-        layoutLoad.setVisibility(View.GONE);
-        layoutMap.setVisibility(View.VISIBLE);
-    }
 
     private void errorResult() {
-        hideLoadingMap();
         viewHelper.exitActivity(activity, "Loading Failed", "Something went wrong.");
     }
 
     // NETWORK REQUEST
 
     private void getTrip() {
+        Log.d("DebugLog", "GET TRIP() EXECUTED");
         Map<String, String> data = new HashMap<>();
         data.put("resp", "1");
         data.put("main", "booking");
@@ -177,12 +172,12 @@ public class BookingTravelingFragment extends Fragment implements OnMapReadyCall
         viewModel.getOkhttpData().observe(this, new Observer<List<Map<String, String>>>() {
             @Override
             public void onChanged(List<Map<String, String>> list) {
-                hideLoadingMap();
 
                 String type = list.get(0).get("type");
                 Log.d("DebugLog", list.toString());
                 switch (type) {
                     case "get_trip":
+                        Log.d("DebugLog", "GET TRIP() RESPONSE");
                         bookId = list.get(0).get("booking_id");
                         tripId = list.get(0).get("trip_id");
                         drawRoute(list);
@@ -238,6 +233,8 @@ public class BookingTravelingFragment extends Fragment implements OnMapReadyCall
     // MAP FUNCTIONS
     private void drawRoute(List<Map<String, String>> list) {
 
+        TextView txtDestination = view.findViewById(R.id.txtDestination);
+        txtDestination.setText(list.get(0).get("destination"));
         transportServiceName = list.get(0).get("company_name");
         originLatLng = routeItemList.get(0).getOriginLatLng();
         destinationLatLng = routeItemList.get(0).getDestLatLng();

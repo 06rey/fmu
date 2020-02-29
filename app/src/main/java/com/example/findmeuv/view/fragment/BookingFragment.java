@@ -41,6 +41,7 @@ public class BookingFragment extends Fragment {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
+
         return view;
     }
 
@@ -62,7 +63,6 @@ public class BookingFragment extends Fragment {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    Log.d("DebugLog", "BookingFragmentPagerAdapter->BookingPendingFragment()");
                     return new BookingPendingFragment();
                 case 1:
                     return new BookingTravelingFragment();

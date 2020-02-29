@@ -67,6 +67,7 @@
         <activity
             android:name=".view.activity.FindUvActivity"
             android:parentActivityName=".view.activity.FmuHomeActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/CustomToolbar" />
         <activity
             android:name=".view.activity.FmuHomeActivity"
@@ -91,6 +92,7 @@
         <activity
             android:name=".view.activity.LoginActivity"
             android:theme="@style/AppThemeNoActionBar"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".view.activity.MainActivity"

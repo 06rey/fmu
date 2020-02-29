@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -30,6 +31,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static android.view.View.GONE;
+
 public class PassengerListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -45,6 +48,7 @@ public class PassengerListActivity extends AppCompatActivity {
     private EventHandler eventHandler = new EventHandler();
     private TripItinerary tripItinerary = new TripItinerary();
     private String mode = "none", noOfPass;
+    private boolean pendingStat;
     int vacantSeat, position;
 
     @Override
@@ -70,6 +74,7 @@ public class PassengerListActivity extends AppCompatActivity {
 
         bookId =  getIntent().getStringExtra("book_id");
         tripId =  getIntent().getStringExtra("trip_id");
+        pendingStat = getIntent().getBooleanExtra("pending", false);
         context = this;
 
         eventHandler.button.setClickListenerWithParam(new EventHandler.ClickListenerWithParam() {
@@ -81,6 +86,13 @@ public class PassengerListActivity extends AppCompatActivity {
                 viewModel.okHttpRequest(data, "GET", "");
             }
         });
+
+        if (!pendingStat) {
+            LinearLayout linearLayout = findViewById(R.id.addPassBtn);
+            LinearLayout mapLayout = findViewById(R.id.mapLayout);
+            linearLayout.setVisibility(GONE);
+            mapLayout.setVisibility(GONE);
+        }
     }
 
     public void onClickBtnAdd(View view) {
@@ -192,7 +204,7 @@ public class PassengerListActivity extends AppCompatActivity {
                             passenger.setStatus(data.get("boarding_status"));
                             passengerList.add(passenger);
                         }
-                        adapter = new PassengerListAdapter(viewHelper, passengerList, context, eventHandler);
+                        adapter = new PassengerListAdapter(viewHelper, passengerList, context, eventHandler, pendingStat);
                         recyclerView.setAdapter(adapter);
                         break;
                     case "remove_passenger":
@@ -204,7 +216,7 @@ public class PassengerListActivity extends AppCompatActivity {
                             passengerList.remove(position);
                             adapter.notifyItemRemoved(position);
                             if (passengerList.size() == 1) {
-                                recyclerView.findViewHolderForAdapterPosition(0).itemView.findViewById(R.id.btnRemove).setVisibility(View.GONE);
+                                recyclerView.findViewHolderForAdapterPosition(0).itemView.findViewById(R.id.btnRemove).setVisibility(GONE);
                             }
                         }
                         eventHandler.response(list);
@@ -266,7 +278,7 @@ public class PassengerListActivity extends AppCompatActivity {
 
     private void dismissLoading() {
         if (mode.equals("none")) {
-            progressBar.setVisibility(View.GONE);
+            progressBar.setVisibility(GONE);
         } else {
             viewHelper.dismissProgressBar();
         }

@@ -20,6 +20,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/addPassBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/header"
@@ -38,11 +39,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="onClickBtnAdd"
                 android:text="Add Passenger"
                 android:textColor="@color/superdarkgray"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:onClick="onClickBtnAdd"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
 

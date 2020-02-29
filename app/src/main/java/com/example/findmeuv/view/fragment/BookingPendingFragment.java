@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class BookingPendingFragment extends Fragment {
+
 
     private RecyclerView bookingRecyclerView;
     private RecyclerView.Adapter pendingAdapter;
@@ -164,6 +166,7 @@ public class BookingPendingFragment extends Fragment {
 
                 switch (type) {
                     case "get_pending_book":
+                        pendingBookItem = new ArrayList<>();
                         for (Map<String, String> map: list) {
                             PendingTrip pending = new PendingTrip();
                             pending.setStatus(map.get("status"));
@@ -180,7 +183,8 @@ public class BookingPendingFragment extends Fragment {
                             pending.setTripId(map.get("trip_id"));
                             pendingBookItem.add(pending);
                         }
-                        pendingAdapter = new BookingPendingAdapter(pendingBookItem, getContext(), adapterHandler);
+
+                        pendingAdapter = new BookingPendingAdapter(pendingBookItem, getContext(), adapterHandler, true);
                         bookingRecyclerView.setAdapter(pendingAdapter);
                         progressBar.setVisibility(View.GONE);
                         break;
@@ -228,5 +232,11 @@ public class BookingPendingFragment extends Fragment {
                 showErrorDialog("Something went wrong there.");
             }
         });
+    }
+
+    @Override
+    public void onPause() {
+        getViewModelStore().clear();
+        super.onPause();
     }
 }
