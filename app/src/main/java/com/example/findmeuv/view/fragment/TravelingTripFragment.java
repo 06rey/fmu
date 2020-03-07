@@ -860,10 +860,12 @@ public class TravelingTripFragment extends Fragment implements OnMapReadyCallbac
             }
         } else {
             userCurrentLatLng = latLng;
-            if (!userLocationIsReady) {
-                userLocationIsReady = true;
-                setUserMarker(latLng);
-                getPossibleDestination();
+            if (isStatusChecked) {
+                if (!userLocationIsReady) {
+                    userLocationIsReady = true;
+                    setUserMarker(latLng);
+                    getPossibleDestination();
+                }
             }
         }
 
