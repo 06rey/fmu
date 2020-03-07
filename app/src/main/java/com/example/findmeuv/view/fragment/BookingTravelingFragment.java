@@ -3,22 +3,25 @@ package com.example.findmeuv.view.fragment;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.location.Location;
-import android.location.LocationListener;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.findmeuv.R;
+import com.example.findmeuv.handler.ConfirmHandler;
 import com.example.findmeuv.model.pojo.RouteItem;
-import com.example.findmeuv.utility.UserLocation;
 import com.example.findmeuv.view.ViewHelper;
+import com.example.findmeuv.view.activity.FmuHomeActivity;
 import com.example.findmeuv.view_model.AppViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -39,6 +42,7 @@ import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -50,7 +54,7 @@ public class BookingTravelingFragment extends Fragment implements OnMapReadyCall
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
-    //MAP OBJECTS AND VARIABLES
+    //---------------------------------------- MAP OBJECTS AND VARIABLES ----------------------------------------
     private GoogleMap googleMap;
     private String pickUpLocLat = null, pickUpLocLng = null, transportServiceName;
     private ImageView imgMarker;
@@ -63,10 +67,18 @@ public class BookingTravelingFragment extends Fragment implements OnMapReadyCall
     private boolean isPolyLineSet = false;
     private Marker pick_up_marker;
 
-    //MISC VARIABLES
-    private String tripId, bookId;
+    //---------------------------------------- MISC VARIABLES ----------------------------------------
+    private String tripId, bookId, tripUpdateTime, tripDistance, tripVacantSeat, tripOnlineStatus, booking_id, boardingStatus;
+
+    //---------------------------------------- VIEW VARIABLES ----------------------------------------
     private View view;
-    private  LinearLayout layoutLoad;
+    private  LinearLayout layoutLoad, noResultLayout;
+    private View viewTripInfo;
+    private TextView txtLocationUpdate, txtLocationDistance, txtDriverName, txtPlateNo, txtVacantSeat, txtDriverOnlineStatus;
+    private Button btnAdd, btnClose, btnCancelBooking, btnNoResult;
+    private AlertDialog tripInfoDialog;
+    private RelativeLayout layoutMain;
+    private LinearLayout btnLayout;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -85,24 +97,9 @@ public class BookingTravelingFragment extends Fragment implements OnMapReadyCall
         return view;
     }
 
-    // MAP FUNCTIONS
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        Log.d("DebugLog", "MAP READY");
-        this.googleMap = googleMap;
-        this.getTrip();
-    }
-
-    private void zoomMap() {
-        CameraPosition cameraPosition = CameraPosition.builder()
-                .target(new LatLng(11.224951574789777,125.01982289054729))
-                .zoom(8)
-                .bearing(0)
-                .tilt(0)
-                .build();
-        this.googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 500, null);
-    }
+    //------------------------------------------------------------------------------------------------
+    //---------------------------------------- INITIALIZATION ----------------------------------------
+    //------------------------------------------------------------------------------------------------
 
     private void initialize(View view) {
 
@@ -119,17 +116,115 @@ public class BookingTravelingFragment extends Fragment implements OnMapReadyCall
 
         this.setViewModelObserver();
 
+        layoutMain = view.findViewById(R.id.layoutMain);
+        noResultLayout = view.findViewById(R.id.noResultLayout);
+        btnLayout = view.findViewById(R.id.btnLayout);
+
+        btnCancelBooking = view.findViewById(R.id.btnCancelBooking);
+        btnNoResult = view.findViewById(R.id.btnNoResult);
+
+                // Trip info dialog view
+        viewTripInfo = LayoutInflater.from(getContext()).inflate(R.layout.traveling_uv_info, null);
+        txtLocationUpdate = viewTripInfo.findViewById(R.id.txtLocationUpdate);
+        txtLocationDistance = viewTripInfo.findViewById(R.id.txtLocationDistance);
+        txtDriverName = viewTripInfo.findViewById(R.id.txtDriverName);
+        txtPlateNo = viewTripInfo.findViewById(R.id.txtPlateNo);
+        txtVacantSeat = viewTripInfo.findViewById(R.id.txtVacantSeat);
+        txtDriverOnlineStatus = viewTripInfo.findViewById(R.id.txtDriverOnlineStatus);
+
+        btnAdd = viewTripInfo.findViewById(R.id.btnAdd);
+        btnClose = viewTripInfo.findViewById(R.id.btnClose);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.MyAlertDialogStyle);
+        builder.setView(viewTripInfo)
+                .setCancelable(false);
+        tripInfoDialog = builder.create();
+
+        setViewClickListener();
     }
-    // MISC FUNCTIONS
+
+    //------------------------------------------------------------------------------------------------
+    //---------------------------------------- CLICK LISTENERS ---------------------------------------
+    //------------------------------------------------------------------------------------------------
+
+    private void setViewClickListener() {
+
+        btnCancelBooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewHelper.confirmDialog("Cancel Reservation?", "Are you sure you want to cancel your seat reservation?");
+            }
+        });
+
+        // Trip info dialog close button
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tripInfoDialog.dismiss();
+            }
+        });
+
+        // Confirm dialog click callback
+        viewHelper.confirmHandler.setConfirmListener(new ConfirmHandler.ConfirmListener() {
+            @Override
+            public void onYesClick() {
+                viewModel.closeServerEventConnection();
+                cancelSeatReservation();
+                redirectToHome();
+            }
+
+            @Override
+            public void onNoClick() {
+                // Do nothing
+            }
+        });
+
+        // No result button
+        btnNoResult.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redirectToHome();
+            }
+        });
+    }
+
+    //------------------------------------------------------------------------------------------------
+    //---------------------------------------- MISC FUNCTIONS ----------------------------------------
+    //------------------------------------------------------------------------------------------------
+
 
     private void errorResult() {
         viewHelper.exitActivity(activity, "Loading Failed", "Something went wrong.");
     }
 
-    // NETWORK REQUEST
+    private void setDriverOnlineStatus(String status) {
+        tripOnlineStatus = status;
+        if (status.equals("ONLINE")) {
+            txtDriverOnlineStatus.setTextColor(getContext().getResources().getColor(R.color.green));
+        } else {
+            txtDriverOnlineStatus.setTextColor(getContext().getResources().getColor(R.color.red));
+        }
+        txtDriverOnlineStatus.setText(status);
+    }
+
+    private void redirectToHome() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(getContext(), FmuHomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                activity.finish();
+            }
+        }, 500);
+    }
+
+    //------------------------------------------------------------------------------------------------
+    //---------------------------------------- NETWORK REQUEST ---------------------------------------
+    //------------------------------------------------------------------------------------------------
 
     private void getTrip() {
-        Log.d("DebugLog", "GET TRIP() EXECUTED");
         Map<String, String> data = new HashMap<>();
         data.put("resp", "1");
         data.put("main", "booking");
@@ -158,14 +253,30 @@ public class BookingTravelingFragment extends Fragment implements OnMapReadyCall
         viewModel.serverSentEvent(data, "");
     }
 
-    // SERVER RESPONSE
+    private void cancelSeatReservation() {
+        // Cancel seat reservation
+        viewHelper.showLoading();
+        Map<String, String> data = new HashMap<>();
+        data.put("resp", "1");
+        data.put("main", "booking");
+        data.put("sub", "delete_booking");
+        data.put("event", "normal");
+        data.put("book_id", booking_id);
+        viewModel.okHttpRequest(data, "GET", "");
+    }
+
+
+    //------------------------------------------------------------------------------------------------
+    //---------------------------------------- SERVER RESPONSE ---------------------------------------
+    //------------------------------------------------------------------------------------------------
+
 
     private void setViewModelObserver() {
 
         viewModel.getServerSentData().observe(this, new Observer<List<Map<String, String>>>() {
             @Override
             public void onChanged(List<Map<String, String>> list) {
-                setVanLocation();
+                setVanLocation(list);
             }
         });
 
@@ -177,7 +288,6 @@ public class BookingTravelingFragment extends Fragment implements OnMapReadyCall
                 Log.d("DebugLog", list.toString());
                 switch (type) {
                     case "get_trip":
-                        Log.d("DebugLog", "GET TRIP() RESPONSE");
                         bookId = list.get(0).get("booking_id");
                         tripId = list.get(0).get("trip_id");
                         drawRoute(list);
@@ -185,10 +295,16 @@ public class BookingTravelingFragment extends Fragment implements OnMapReadyCall
                         getVanLocation();
                         break;
                     case "pick_up":
-                        setPickUpPointLocation();
+                        if (!boardingStatus.equals("on_board")) {
+                            setPickUpPointLocation();
+                        }
+                        break;
+                    case "delete_booking":
+                        viewHelper.dismissLoading();
+                        viewHelper.alertDialog("Success", "Your seat reservation has been cancelled.");
                         break;
                 }
-
+                noResultLayout.setVisibility(View.GONE);
             }
         });
 
@@ -200,6 +316,14 @@ public class BookingTravelingFragment extends Fragment implements OnMapReadyCall
         });
 
         // ERROR OBSERVER
+
+        viewModel.getOkhttpDataError().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                layoutMain.setVisibility(View.GONE);
+                noResultLayout.setVisibility(View.VISIBLE);
+            }
+        });
 
         viewModel.getOkhttpConnectionError().observe(this, new Observer<Boolean>() {
             @Override
@@ -230,7 +354,28 @@ public class BookingTravelingFragment extends Fragment implements OnMapReadyCall
 
     }
 
-    // MAP FUNCTIONS
+    //------------------------------------------------------------------------------------------------
+    //---------------------------------------- MAP FUNCTIONS -----------------------------------------
+    //------------------------------------------------------------------------------------------------
+
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        Log.d("DebugLog", "MAP READY");
+        this.googleMap = googleMap;
+        this.getTrip();
+    }
+
+    private void zoomMap() {
+        CameraPosition cameraPosition = CameraPosition.builder()
+                .target(new LatLng(11.224951574789777,125.01982289054729))
+                .zoom(8)
+                .bearing(0)
+                .tilt(0)
+                .build();
+        this.googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 500, null);
+    }
+
     private void drawRoute(List<Map<String, String>> list) {
 
         TextView txtDestination = view.findViewById(R.id.txtDestination);
@@ -260,6 +405,32 @@ public class BookingTravelingFragment extends Fragment implements OnMapReadyCall
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(googlePlex), 1000, null);
 
         zoomMap();
+
+        // Init trip info
+
+        boardingStatus = list.get(0).get("boarding_status");
+
+        setDriverOnlineStatus(list.get(0).get("is_online"));
+        booking_id = list.get(0).get("booking_id");
+        tripUpdateTime = list.get(0).get("last_online");
+        tripDistance = String.format("%.2f", Float.parseFloat(list.get(0).get("uv_distance"))) + " KM";
+        tripVacantSeat = list.get(0).get("vacant_seat");
+
+        txtVacantSeat.setText(tripVacantSeat);
+        txtLocationUpdate.setText(tripUpdateTime);
+        txtLocationDistance.setText(tripDistance);
+        txtDriverName.setText(list.get(0).get("f_name").toUpperCase() + " " + list.get(0).get("l_name").toUpperCase());
+        txtPlateNo.setText(list.get(0).get("plate_no").toUpperCase());
+
+        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                if (marker.getTitle().contains("UV Express Location")) {
+                    tripInfoDialog.show();
+                }
+                return false;
+            }
+        });
     }
 
     private void setPickUpPointLocation() {
@@ -272,7 +443,7 @@ public class BookingTravelingFragment extends Fragment implements OnMapReadyCall
     }
 
     private Marker vanM;
-    private void setVanLocation() {
+    private void setVanLocation(List<Map<String, String>> list) {
         if (vanM != null) {
             vanM.remove();
         }
@@ -282,5 +453,26 @@ public class BookingTravelingFragment extends Fragment implements OnMapReadyCall
                 .position(routeItemList.get(0).getCurrentLocationLatLng())
                 .icon(icon);
         vanM = googleMap.addMarker(vanMark);
+
+        boardingStatus = list.get(0).get("boarding_status");
+
+        setDriverOnlineStatus(list.get(0).get("is_online"));
+        tripUpdateTime = list.get(0).get("last_online");
+        tripDistance = String.format("%.2f", Float.parseFloat(list.get(0).get("uv_distance"))) + " KM";
+        tripVacantSeat = list.get(0).get("vacant_seat");
+
+        txtVacantSeat.setText(tripVacantSeat);
+        txtLocationUpdate.setText(tripUpdateTime);
+        txtLocationDistance.setText(tripDistance);
+
+        if (list.get(0).get("boarding_status").equals("on_board")) {
+            btnLayout.setVisibility(View.GONE);
+        }
     }
+
+
+    //------------------------------------------------------------------------------------------------
+    //-------------------------------------- THIS OVERRIDE FUNCTION ----------------------------------
+    //------------------------------------------------------------------------------------------------
+
 }

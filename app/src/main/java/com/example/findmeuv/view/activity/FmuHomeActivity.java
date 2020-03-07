@@ -1,5 +1,6 @@
 package com.example.findmeuv.view.activity;
 
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 
 import com.example.findmeuv.R;
 import com.example.findmeuv.handler.FragmentBackPressedHandler;
+import com.example.findmeuv.service.NotificationService;
 import com.example.findmeuv.view.fragment.AccountSettingFragment;
 import com.example.findmeuv.view.fragment.BookingFragment;
 import com.example.findmeuv.view.fragment.FmuDashboardFragment;
@@ -19,6 +21,7 @@ import com.example.findmeuv.utility.BugReport;
 import com.example.findmeuv.view.ViewHelper;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
 
@@ -113,6 +116,12 @@ public class FmuHomeActivity extends AppCompatActivity implements
                 }
             }
         });
+        startNotificationService();
+    }
+
+    private void startNotificationService() {
+        Log.d("DebugLog", "NOTIFICATION SERVICE TRIGGERED");
+        startService(new Intent(this, NotificationService.class));
     }
 
     @Override

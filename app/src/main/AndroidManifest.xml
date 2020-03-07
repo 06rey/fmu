@@ -26,13 +26,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
-
-        <activity android:name=".view.activity.UvExpressMapActivity"
-            android:label="Uv Express Map"
-            android:parentActivityName=".view.activity.PassengerListActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"/>
+        <activity android:name=".view.notification.MessageNotificationActivity"
+            android:theme="@style/ThemeDialog"/>
         <activity
             android:name=".view.activity.PassengerListActivity"
             android:label="Passenger List"
@@ -91,8 +86,8 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".view.activity.LoginActivity"
-            android:theme="@style/AppThemeNoActionBar"
             android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".view.activity.MainActivity"
@@ -110,8 +105,9 @@
         <service
             android:name=".service.LocationService"
             android:enabled="true" />
-
-
+        <service
+            android:name=".service.NotificationService"
+            android:enabled="true" />
         <!--
             The API key for Google Maps-based APIs is defined as a string resource.
             (See the file "res/values/google_maps_api.xml").
@@ -119,7 +115,7 @@
             You need a different API key for each encryption key, including the release key that is used to
             sign the APK for publishing.
             You can define the keys for the debug and release targets in src/debug/ and src/release/.
-       -->
+        -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />

@@ -89,9 +89,7 @@ public class PassengerListActivity extends AppCompatActivity {
 
         if (!pendingStat) {
             LinearLayout linearLayout = findViewById(R.id.addPassBtn);
-            LinearLayout mapLayout = findViewById(R.id.mapLayout);
             linearLayout.setVisibility(GONE);
-            mapLayout.setVisibility(GONE);
         }
     }
 
@@ -283,12 +281,5 @@ public class PassengerListActivity extends AppCompatActivity {
             viewHelper.dismissProgressBar();
         }
         mode = "none";
-    }
-
-    public void onClickBtnMap(View view) {
-        Intent intent = new Intent(PassengerListActivity.this, UvExpressMapActivity.class);
-        intent.putExtra("tripId", tripId);
-        intent.putExtra("bookId", bookId);
-        startActivity(intent);
     }
 }

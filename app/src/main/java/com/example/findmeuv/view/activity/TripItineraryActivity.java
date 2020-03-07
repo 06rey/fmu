@@ -123,9 +123,7 @@ public class TripItineraryActivity extends AppCompatActivity {
             }
         } catch (JSONException e) {
             e.printStackTrace();
-            Log.d("DebugLog", "TripItenerary->postData: " + e.getMessage());
         }
-        Log.d("DebugLog", "TripItenerary->postData VAL:: " + postData.toString());
         viewModel.okHttpRequest(postData, "POST", "");
     }
 
@@ -202,11 +200,23 @@ public class TripItineraryActivity extends AppCompatActivity {
     }
 
     private void setViewModelObserver() {
+
         viewModel.getOkhttpData().observe(this, new Observer<List<Map<String, String>>>() {
             @Override
             public void onChanged(List<Map<String, String>> list) {
+                String message = "";
+                String type = list.get(0).get("type");
+
+                switch (type) {
+                    case "trip_status":
+                        message = "Your seat reservation cannot be saved due to trip schedule was cancelled. Thank you.";
+                        break;
+                    case "save_booking":
+                        message = "Your seat reservation has been successfully saved. Thank you.";
+                        break;
+                }
+
                 viewHelper.dismissLoading();
-                String message = "Your seat reservation has been successfully saved. Thank you.";
                 builder.setTitle("System Message")
                         .setMessage(message)
                         .setCancelable(false)

@@ -24,6 +24,8 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.findmeuv.R;
+import com.example.findmeuv.handler.ConfirmHandler;
+import com.example.findmeuv.handler.EventHandler;
 import com.example.findmeuv.view.activity.FindUvActivity;
 
 import androidx.core.app.ActivityCompat;
@@ -38,6 +40,7 @@ public class ViewHelper {
     private SharedPreferences.Editor editor;
     private AlertDialog progressBar;
     private TextWatcher textWatcher;
+    public ConfirmHandler confirmHandler = new ConfirmHandler();
 
     public TextWatcher getTextWatcher() {
         return textWatcher;
@@ -355,5 +358,24 @@ public class ViewHelper {
         dialog.show();
     }
 
+    public void confirmDialog(String title, String msg) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.context, R.style.MyAlertDialogStyle);
+        builder.setTitle(title)
+                .setMessage(msg)
+                .setCancelable(false)
+                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        confirmHandler.yes();
+                    }
+                })
+                .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        confirmHandler.no();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 
 }

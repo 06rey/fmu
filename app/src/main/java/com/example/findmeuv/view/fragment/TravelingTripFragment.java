@@ -81,7 +81,8 @@ public class TravelingTripFragment extends Fragment implements OnMapReadyCallbac
 
     private String type;
     private boolean cloneLocation = false;
-    private LatLng cloneVal = new LatLng(11.25693053564048, 124.96947698561335);//new LatLng(11.219460706249155, 124.99335919734938); //new LatLng(11.270362068860159, 124.9637014886307)
+    private LatLng cloneVal = new LatLng(11.204227, 125.010693);//new LatLng(11.219460706249155, 124.99335919734938); //new LatLng(11.270362068860159, 124.9637014886307)
+
     private TextView txtHeadingTo, tripId, destination, arrival, plate, vehicle, distance, seat;
     private int noOfPass = 0;
     private TravelingUvExpress selectedUvExpress;
@@ -516,8 +517,8 @@ public class TravelingTripFragment extends Fragment implements OnMapReadyCallbac
                             tripItinerary.setQueueId(String.valueOf(list.get(0).get("id")));
                             tripItinerary.setAvailableSeat(selectedUvExpress.getVacantSeat());
                             tripItinerary.setTransportService(selectedUvExpress.getCompanyName());
-                            tripItinerary.setLocLat(String.valueOf(pickUpPointLatLng.latitude));
-                            tripItinerary.setLocLng(String.valueOf(pickUpPointLatLng.longitude));
+                            tripItinerary.setLocLat(String.valueOf(pickUpPointMarker.getPosition().latitude));
+                            tripItinerary.setLocLng(String.valueOf(pickUpPointMarker.getPosition().longitude));
                             tripItinerary.setBoardingPoint("Pick_up");
                             try {
                                 tripItinerary.setDeviceId(Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID));

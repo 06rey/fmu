@@ -130,8 +130,8 @@ public class ResponseBodyJsonArrayParser {
                             routeItem.setCurrentLocationLatLng(currentLocationLatLng);
                             break;
                         case "pick_up_loc":
-
-                            if (obj.getString("pick_up_loc").contains("Terminal")) {
+                            Log.d("DebugLog", "PICK UP MODE VALUE: "+ obj.getString("pick_up_mode"));
+                            if (obj.getString("pick_up_mode").contains("Terminal")) {
                                 value.put(obj.names().getString(b), obj.getString(obj.names().getString(b)));
                             } else {
                                 JSONObject pickUpLatLngObj = obj.getJSONObject("pick_up_loc");
