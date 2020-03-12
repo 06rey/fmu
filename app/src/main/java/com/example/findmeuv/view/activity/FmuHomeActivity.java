@@ -1,6 +1,5 @@
 package com.example.findmeuv.view.activity;
 
-import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,7 +13,7 @@ import com.example.findmeuv.view.fragment.AccountSettingFragment;
 import com.example.findmeuv.view.fragment.BookingFragment;
 import com.example.findmeuv.view.fragment.FmuDashboardFragment;
 import com.example.findmeuv.view.fragment.RouteFragment;
-import com.example.findmeuv.view.fragment.UserGuideFragment;
+import com.example.findmeuv.view.fragment.OtherFragment;
 import com.example.findmeuv.view.fragment.TravelingTripFragment;
 import com.example.findmeuv.helper.User;
 import com.example.findmeuv.utility.BugReport;
@@ -184,7 +183,7 @@ public class FmuHomeActivity extends AppCompatActivity implements
         } else if (id == R.id.userguide) {
             this.setTitle("");
             title.setText("User Guide");
-            fragment = new UserGuideFragment();
+            fragment = new OtherFragment();
         }
 
         //NOTE: Fragment changing code
@@ -260,7 +259,7 @@ public class FmuHomeActivity extends AppCompatActivity implements
     }
 
     public void onCLickbtnUg(View view) {
-        switchFragment(new UserGuideFragment(), "User Guide", R.id.userguide);
+        switchFragment(new OtherFragment(), "User Guide", R.id.userguide);
     }
 
     public void logout(View view) {

@@ -26,8 +26,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".view.notification.MessageNotificationActivity"
-            android:theme="@style/ThemeDialog"/>
+        <activity android:name=".view.activity.FeedbackActivity"
+            android:label="Feedback"
+            android:parentActivityName=".view.activity.FmuHomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".view.notification.MessageNotificationActivity"
+            android:theme="@style/ThemeDialog" />
         <activity
             android:name=".view.activity.PassengerListActivity"
             android:label="Passenger List"

@@ -216,7 +216,7 @@
                             android:layout_marginRight="10dp"
                             android:layout_marginBottom="30dp"
                             android:gravity="top|left"
-                            android:text="Help"
+                            android:text="Other"
                             android:textColor="@android:color/background_light"
                             android:textSize="14sp" />
 

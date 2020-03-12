@@ -5,7 +5,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="loadingText">Loading...</string>
     <string name="base_url">172.16.7.124</string>
-    <string name="BASE_URL2">http://172.16.7.124/fmuv/</string>
+    <string name="BASE_URL2">http://192.168.137.1/fmuv/</string>
     <string name="BASE_URL1">http://findmeuv.x10host.com/fmuv/</string>
     <string name="BASE_URL">http://192.168.43.147/fmuv/</string>
     <string name="nav_header_title">Android Studio</string>
